@@ -44,7 +44,7 @@ def run_convert(args: argparse.Namespace) -> None:
 
 
 def run_password(args: argparse.Namespace) -> None:
-    print(password.generate(args.length, use_symbols=args.symbols))
+    print(password.generate(args.length, use_symbols=args.symbols, use_digits=args.no_digits))
 
 
 def run_uuid(args: argparse.Namespace) -> None:
@@ -114,6 +114,7 @@ def build_parser() -> argparse.ArgumentParser:
     pw = sub.add_parser("password", help="generate a password")
     pw.add_argument("--length", type=int, default=12)
     pw.add_argument("--symbols", action="store_true")
+    pw.add_argument("--no-digits", action="store_false")
 
     uid = sub.add_parser("uuid", help="generate UUIDs")
     uid.add_argument("--count", type=int, default=1)
