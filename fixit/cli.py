@@ -136,6 +136,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--n", type=int, default=3, help="number of words to show (default: 3)"
     )
 
+    sub.add_parser("shell", help="start the interactive shell")
+
     return parser
 
 
@@ -156,6 +158,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     try:
         args = parser.parse_args(argv)
+
+        if args.command == "shell":
+            from fixit.shell import run_shell
+
+            run_shell()
+            return 0
+        
         COMMAND_TABLE[args.command](args)
         return 0
     except ValueError as e:
